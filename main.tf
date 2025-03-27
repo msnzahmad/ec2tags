@@ -1,14 +1,14 @@
 resource "aws_iam_role" "MSEventbridgeRole" {
-  name               = "MSEventbridgeRole"
+  name = "MSEventbridgeRole"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect    = "Allow"
+        Effect = "Allow"
         Principal = {
           Service = ["events.amazonaws.com"]
         }
-        Action   = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
       }
     ]
   })
@@ -16,8 +16,8 @@ resource "aws_iam_role" "MSEventbridgeRole" {
 }
 
 resource "aws_iam_role_policy" "MSEventbridgeRolePolicy" {
-  name   = "MSEventbridgeRolePolicy"
-  role   = aws_iam_role.MSEventbridgeRole.id
+  name = "MSEventbridgeRolePolicy"
+  role = aws_iam_role.MSEventbridgeRole.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -46,16 +46,16 @@ resource "aws_iam_role_policy" "MSEventbridgeRolePolicy" {
 }
 
 resource "aws_iam_role" "LambdaExecutionRole" {
-  name               = "LambdaExecutionRole"
+  name = "LambdaExecutionRole"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect    = "Allow"
+        Effect = "Allow"
         Principal = {
           Service = ["lambda.amazonaws.com", "events.amazonaws.com"]
         }
-        Action   = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
       }
     ]
   })
@@ -63,8 +63,8 @@ resource "aws_iam_role" "LambdaExecutionRole" {
 
 # Define the policy separately and attach it using aws_iam_role_policy
 resource "aws_iam_role_policy" "LambdaExecutionPolicy" {
-  name   = "LambdaExecutionPolicy"
-  role   = aws_iam_role.LambdaExecutionRole.id
+  name = "LambdaExecutionPolicy"
+  role = aws_iam_role.LambdaExecutionRole.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -136,5 +136,5 @@ resource "aws_lambda_permission" "EventBridgeInvokePermission" {
   action        = "lambda:InvokeFunction"
   principal     = "events.amazonaws.com"
   statement_id  = "AllowEventBridgeInvoke"
-  source_arn    = aws_cloudwatch_event_rule.EventBridgeRule.arn  # Corrected reference
+  source_arn    = aws_cloudwatch_event_rule.EventBridgeRule.arn # Corrected reference
 }
