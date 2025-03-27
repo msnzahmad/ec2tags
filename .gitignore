@@ -1,8 +1,12 @@
+# Ignore Terraform files
 .terraform/
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.backup
-.terraform/
-.terraform.lock.hcl
-*.tfstate
+
+# Ignore provider binaries
+*.exe
+*.zip
+*.tar.gz
+*.tar
 
